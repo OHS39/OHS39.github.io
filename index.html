@@ -38,12 +38,10 @@
 </form>
 
 <div id = "seiri">
-  <h2 id = Stitle>整理券</h2>
+  <h2 id = Stitle>整理券  <span id="St">--:--</span></h2>
   <h2 id = "sentence"><span id="Reservetime">--:--</span>頃にお越しください。</h2>
   <p>※順番は前後する場合がございます。また、この時刻は目安です。余裕をもってお越しください。</p>
 </div>
-
-<button onclick="resetLocalStorage()">リセットボタン（デバッグ）</button>
 
 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
@@ -69,7 +67,7 @@
   async function fetchWaitTime() {
     try {
       // キャッシュ（古いデータの保持）を防ぐため末尾にタイムスタンプを付与してCSVを取得
-      const response = await fetch(CSV_URL + "&t=" + new Date().getTime());
+      const response = await fetch(CSV_URL + "&t=" + new Date().getTime(), {cache: "no-store"});
       const text = await response.text();
       
       // A1セル（待ち分数）の数値を取り出す
@@ -103,13 +101,6 @@
     }
   }
 
-  function resetLocalStorage() {
-    if (confirm('ローカルストレージのデータをすべてリセットしますか？')) {
-      localStorage.clear(); // 保存されているデータをすべて消去
-      location.reload();    // 画面を再読み込みして初期状態に戻す
-    }
-  }
-
 
   // ==========================================
   // 4. フォーム送信処理（Googleフォーム連携）
@@ -132,17 +123,17 @@
       // 画面に表示されている予定案内時刻を取得
       const estTime = document.getElementById("estimatedTime") ? document.getElementById("estimatedTime").innerText : "--:--";
       
-      // ① スマホのブラウザ（ローカルストレージ）に予約情報を記憶させる
+      //スマホのブラウザ（ローカルストレージ）に予約情報を記憶させる
       const ticketData = {
         targetTime: estTime,
         bookedAt: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketData));
 
-      // ② アラート表示
+      
       alert(`予約が完了しました！\n\n【ご案内予定時刻】 ${estTime} 頃\n\n※この後表示される「整理券画面」をスクリーンショットして保管してください。`);
       
-      // ③ 画面表示を「整理券表示」に切り替える
+      //画面表示を「整理券表示」に切り替える
       checkExistingTicket();
 
       // ボタンや状態をリセット
@@ -151,13 +142,13 @@
       
       const btn = document.getElementById("submitBtn");
       if (btn) {
-        btn.innerText = "予約を確定する";
+        btn.innerText = "予約する";
         btn.disabled = false;
       }
       submitted = false;
       
-      // 1秒後に最新の待ち時間を再計算
-      setTimeout(fetchWaitTime, 1000);
+      // 5秒後に最新の待ち時間を再計算
+      setTimeout(fetchWaitTime, 5000);
     }
   }
 
@@ -204,6 +195,9 @@
 
       const tt = document.getElementById("Reservetime");
       tt.innerText = data.targetTime;
+
+      const nt = document.getElementById("St");
+      if(nt) nt.innerText = data.bookedAt;
       // 整理券の中に時間をセットする
       //const myTargetTimeElem = document.getElementById("myTargetTime");
       //if (myTargetTimeElem) {

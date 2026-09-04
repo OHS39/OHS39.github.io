@@ -85,6 +85,10 @@ button[type="submit"], #submitBtn {
   max-width: 400px;       /* 横幅が広がりすぎないように制限 */
   box-sizing: border-box;
 }
+#St{
+  font-size: 0.4rem;
+  color: #696969;
+}
 #Stitle{
     font-size: 1.5rem;
   margin: 0 0 10px 0;
