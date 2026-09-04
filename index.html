@@ -40,14 +40,7 @@
   // ==========================================
   // 1. ページ読み込み時の処理
   // ==========================================
-  window.addEventListener('DOMContentLoaded', () => {
-    // 既に予約済みのデータがあるか確認
-    checkExistingTicket();
-    // スプレッドシートから待ち時間を取得
-    fetchWaitTime();
-    // 30秒ごとに待ち時間を自動更新
-    setInterval(fetchWaitTime, 30000);
-  });
+ 
 
 
 
@@ -197,6 +190,15 @@
         //myTargetTimeElem.innerText = data.targetTime + " 頃";
       //}
     }
+
+     window.addEventListener('DOMContentLoaded', () => {
+    // 既に予約済みのデータがあるか確認
+    checkExistingTicket();
+    // スプレッドシートから待ち時間を取得
+    fetchWaitTime();
+    // 30秒ごとに待ち時間を自動更新
+    setInterval(fetchWaitTime, 30000);
+  });
   }
 </script>
 </body>
