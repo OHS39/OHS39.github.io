@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>文化祭</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <h1>3-9 The Frozen Curse</h1>
+  <br><h2>待ち人数</h2>
+  <h2><div id = "WaitPeople">1</div>人</h2>
+  <Br><h2>待ち時間目安</h2>
+  <h2><div id = "waitTime">20</div>分</h2>
+  <br><h2>案内予定時刻</h2>
+  <h2 id = "estimatedTime">10:10</h2>
+
+  <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfRFS7dBoVCkkXRCejVBd1yYdj3HO9z09MuCtlwwrhKk5BbEQ/formResponse" 
+      method="POST" 
+      target="hidden_iframe" 
+      onsubmit="handleSubmit();">
+
+  <input type="text" name="entry.1847106384" required>
+
+  <button type="submit" id="submitBtn">予約を確定する</button>
+</form>
+
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleResponse();"></iframe>
+
+
+
+<script>
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRn1yYkAIirKLu2ebiaxUJyzuHRuK-l8Z8L-589wWbzNVAomU7tT-MWoIyJ_6FcAjhlGaWuI0rg4AhL/pub?gid=1171702972&output=csv";
+
+  // ローカルストレージに保存する際のキー名（任意の文字列でOK）
+  const STORAGE_KEY = "festival_reservation_ticket";
+
+
+  // ==========================================
+  // 1. ページ読み込み時の処理
+  // ==========================================
+  window.addEventListener('DOMContentLoaded', () => {
+    // 既に予約済みのデータがあるか確認
+    checkExistingTicket();
+    // スプレッドシートから待ち時間を取得
+    fetchWaitTime();
+    // 30秒ごとに待ち時間を自動更新
+    setInterval(fetchWaitTime, 30000);
+  });
+
+
+
+
+
+  // ==========================================
+  // 3. 待ち時間と案内予定時刻の計算取得
+  // ==========================================
+  async function fetchWaitTime() {
+    try {
+      // キャッシュ（古いデータの保持）を防ぐため末尾にタイムスタンプを付与してCSVを取得
+      const response = await fetch(CSV_URL + "&t=" + new Date().getTime());
+      const text = await response.text();
+      
+      // A1セル（待ち分数）の数値を取り出す
+      const waitNum = parseInt(text.trim().split("\n")[0].split(",")[0].replace(/"/g, ''), 10) || 0;
+
+      const waitMinutes = parseInt(text.trim().split("\n")[1].split(",")[0].replace(/"/g, ''), 10) || 0;
+      
+      // 画面の待ち時間を更新
+
+      const waitPeople = document.getElementById("WaitPeople");
+      if(waitPeople) waitPeople.innerText = waitNum;
+
+      const waitTimeElem = document.getElementById("waitTime");
+      if (waitTimeElem) waitTimeElem.innerText = waitMinutes;
+
+      // --- 案内予定時刻の計算（現在時刻 + 待ち分数） ---
+      const now = new Date();
+      const targetTime = new Date(now.getTime() + waitMinutes * 60 * 1000);
+      
+      const targetHours = String(targetTime.getHours()).padStart(2, '0');
+      const targetMinutes = String(targetTime.getMinutes()).padStart(2, '0');
+      const estimatedTimeStr = `${targetHours}:${targetMinutes}`;
+
+      const estimatedTimeElem = document.getElementById("estimatedTime");
+      if (estimatedTimeElem) estimatedTimeElem.innerText = estimatedTimeStr;
+
+    } catch (error) {
+      console.error("待ち時間の取得に失敗しました:", error);
+      const waitTimeElem = document.getElementById("waitTime");
+      if (waitTimeElem) waitTimeElem.innerText = "--";
+    }
+  }
+
+
+  // ==========================================
+  // 4. フォーム送信処理（Googleフォーム連携）
+  // ==========================================
+  let submitted = false;
+
+  // 送信ボタンが押されたとき
+  function handleSubmit() {
+    submitted = true;
+    const btn = document.getElementById("submitBtn");
+    if (btn) {
+      btn.innerText = "送信中...";
+      btn.disabled = true;
+    }
+  }
+
+  // 隠しiframeのデータ読み込みが完了したとき（送信完了時）
+  function handleResponse() {
+    if (submitted) {
+      // 画面に表示されている予定案内時刻を取得
+      //const estTime = document.getElementById("estimatedTime") ? document.getElementById("estimatedTime").innerText : "--:--";
+      
+      // ① スマホのブラウザ（ローカルストレージ）に予約情報を記憶させる
+      //const ticketData = {
+        //targetTime: estTime,
+        //bookedAt: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })
+      //};
+      //localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketData));
+
+      // ② アラート表示
+      //alert(`予約が完了しました！\n\n【ご案内予定時刻】 ${estTime} 頃\n\n※この後表示される「整理券画面」をスクリーンショットして保管してください。`);
+      
+      // ③ 画面表示を「整理券表示」に切り替える
+      checkExistingTicket();
+
+      // ボタンや状態をリセット
+      const formElem = document.querySelector("form");
+      if (formElem) formElem.reset();
+      
+      const btn = document.getElementById("submitBtn");
+      if (btn) {
+        btn.innerText = "予約を確定する";
+        btn.disabled = false;
+      }
+      submitted = false;
+      
+      // 1秒後に最新の待ち時間を再計算
+      //setTimeout(fetchWaitTime, 1000);
+    }
+  }
+
+
+  // ==========================================
+  // 5. ローカルストレージ（二重予約防止・整理券表示）
+  // ==========================================
+  // 既存の予約情報があるかチェックし、表示を切り替える関数
+  function checkExistingTicket() {
+    const savedTicket = localStorage.getItem(STORAGE_KEY);
+    
+    if (savedTicket) {
+      const data = JSON.parse(savedTicket);
+      
+      // 予約フォームを非表示にする
+      const formElem = document.querySelector("form");
+      if (formElem) formElem.style.display = "none";
+      
+      // 整理券エリアを表示する
+      const ticketArea = document.getElementById("ticketArea");
+      if (ticketArea) {
+        ticketArea.style.display = "block";
+      }
+      
+      // 整理券の中に時間をセットする
+      //const myTargetTimeElem = document.getElementById("myTargetTime");
+      //if (myTargetTimeElem) {
+        //myTargetTimeElem.innerText = data.targetTime + " 頃";
+      //}
+    }
+  }
+</script>
+</body>
+</html>
