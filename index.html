@@ -169,7 +169,7 @@
         return;
       }
 
-      const [hour,min] = data.estTime.split(":").map(Number);
+      const [hour,min] = data.targetTime.split(":").map(Number);
       const targetTime = new Date();
       const now = new Date();
       targetTime.setHours(hour, min, 0, 0);
