@@ -23,16 +23,52 @@
     font-size: 0.8rem;
 }
 body{
-    background-color: black;
+  background-color: black;
+  color: white;
+  margin: 0;
+  padding: 20px 16px; /* 上下に余裕を持たせる */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 #title{
     color: brown;
 }
-button{
-   display: block;
-   margin: 0 auto;                 /* ボタンを中央配置する場合 */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* 子要素（input, button）を中央揃えにする */
+  width: 100%;
+  max-width: 400px;     /* 大きくなりすぎないように幅を抑える */
+  margin: 0 auto;       /* フォーム自体を画面中央に配置 */
+  gap: 16px;            /* 入力欄とボタンの間の余白 */
 }
-input{
-    display: block;
-   margin: 0 auto;
+
+/* ★ 入力フィールド */
+input[type="text"] {
+  width: 100%;          /* フォーム幅一杯に広げる */
+  padding: 14px 16px;   /* 内側の余白を増やして押しやすく */
+  font-size: 1.1rem;    /* 文字を大きめに */
+  text-align: center;   /* 入力文字やプレースホルダーも中央寄せ */
+  border-radius: 10px;
+  border: 1px solid #555;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border-color: #00d2ff; /* フォーカス時に縁を青くハイライト */
+}
+
+/* ★ 送信ボタン */
+button[type="submit"], #submitBtn {
+  width: 100%;
+  padding: 16px;        /* ボタンを太くして押しやすく */
+  font-size: 1.1rem;
+  font-weight: bold;
+  background-color: brown;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
