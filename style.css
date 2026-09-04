@@ -13,14 +13,14 @@
 }
 .infobox {
   text-align: center;            /* 文字を中央揃え */
-  font-size: 3rem;
+  font-size: 1.5rem;
 }
 .infotext{
     white-space: nowrap;
     display: flex;
 }
 .infoname{
-    font-size: 1.8rem;
+    font-size: 0.8rem;
 }
 body{
     background-color: black;
@@ -29,5 +29,6 @@ body{
     color: brown;
 }
 button{
-    align-items: center;
+   display: block;
+   margin: 0 auto;                 /* ボタンを中央配置する場合 */
 }
