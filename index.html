@@ -165,6 +165,7 @@
       if(data.estTime == "--:--"){
         localStorage.removeItem(STORAGE_KEY);
         location.reload();
+        submitted = false;
         return;
       }
 
@@ -176,6 +177,7 @@
       if(now.getTime() > targetTime.getTime()){
         localStorage.removeItem(STORAGE_KEY);
         location.reload();
+        submitted = false;
         return;
       }
 
