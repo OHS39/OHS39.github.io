@@ -162,7 +162,7 @@
     if (savedTicket) {
       const data = JSON.parse(savedTicket);
 
-      if(data.estTime == "--:--"){
+      if(data.targetTime == "--:--"){
         localStorage.removeItem(STORAGE_KEY);
         location.reload();
         submitted = false;
