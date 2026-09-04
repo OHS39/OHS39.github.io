@@ -1,6 +1,4 @@
-body{
-    background-color: black;
-}
+
 .contain{
     display: flex;
     justify-content: space-around; /* 均等に横に並べる */
@@ -12,4 +10,7 @@ body{
 }
 .infobox {
   text-align: center;            /* 文字を中央揃え */
+}
+body{
+    background-color: black;
 }
