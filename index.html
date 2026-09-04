@@ -3,7 +3,7 @@
 <head>
   <title>The Frozen Curse</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 </head>
 <body>
   <h1>3-9 The Frozen Curse</h1>
@@ -161,7 +161,24 @@
     
     if (savedTicket) {
       const data = JSON.parse(savedTicket);
-      
+
+      if(data.estTime == "--:--"){
+        localStorage.clear();
+        location.reload();
+        return;
+      }
+
+      const [hour,min] = data.estTime.split(":").map(Number);
+      const targetTime = new Date();
+      targetTime.setHours(hours, minutes, 0, 0);
+      targetTime.setMinutes(targetTime.getMinutes()+5);
+      if(now.getTime() > targetTime.getTime()){
+        localStorage.clear();
+        location.reload();
+        return;
+      }
+
+
       // 予約フォームを非表示にする
       const formElem = document.querySelector("form");
       if (formElem) formElem.style.display = "none";
