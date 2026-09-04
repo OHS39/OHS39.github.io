@@ -77,7 +77,7 @@ button[type="submit"], #submitBtn {
   flex-direction: column; /* 中身を上から下に縦並びにする */
   align-items: center;    /* 中身の要素を左右中央に寄せる */
   text-align: center;     /* テキストを中央揃えにする */
-  background-color: #FF4500;
+  background-color: #778899;
   padding: 20px 15px;
   border-radius: 3px;    /* 角丸を追加 */
   margin: 25px auto;
