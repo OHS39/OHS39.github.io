@@ -1,4 +1,7 @@
 
+* {
+  box-sizing: border-box;
+}
 .contain{
     display: flex;
     justify-content: space-around; /* 均等に横に並べる */
@@ -10,10 +13,11 @@
 }
 .infobox {
   text-align: center;            /* 文字を中央揃え */
-  font-size: 1.2rem;
+  font-size: 3rem;
 }
 .infotext{
     white-space: nowrap;
+    display: flex;
 }
 body{
     background-color: black;
