@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang = "ja">
 <head>
   <title>The Frozen Curse</title>
   <meta charset="UTF-8">
@@ -23,6 +23,8 @@
 
   <button type="submit" id="submitBtn">予約を確定する</button>
 </form>
+
+<button onclick="resetLocalStorage()">リセットボタン（デバッグ）</button>
 
 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleResponse();"></iframe>
 
@@ -88,6 +90,13 @@
       console.error("待ち時間の取得に失敗しました:", error);
       const waitTimeElem = document.getElementById("waitTime");
       if (waitTimeElem) waitTimeElem.innerText = "--";
+    }
+  }
+
+  function resetLocalStorage() {
+    if (confirm('ローカルストレージのデータをすべてリセットしますか？')) {
+      localStorage.clear(); // 保存されているデータをすべて消去
+      location.reload();    // 画面を再読み込みして初期状態に戻す
     }
   }
 
