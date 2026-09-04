@@ -3,14 +3,14 @@
     display: flex;
     justify-content: space-around; /* 均等に横に並べる */
     align-items: center;            /* 上下の位置を中央に揃える */
-    background-color: #f0f4f8;     /* 背景色（お好みで調整） */
+    background-color: #808080;     /* 背景色（お好みで調整） */
     padding: 15px;
-    border-radius: 10px;           /* 角を丸くする */
+    border-radius: 8px;           /* 角を丸くする */
     margin: 20px 0;
 }
 .infobox {
   text-align: center;            /* 文字を中央揃え */
-  font-size: 15px;
+  font-size: 7px;
 }
 body{
     background-color: black;
