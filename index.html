@@ -163,17 +163,18 @@
       const data = JSON.parse(savedTicket);
 
       if(data.estTime == "--:--"){
-        localStorage.clear();
+        localStorage.removeItem(STORAGE_KEY);
         location.reload();
         return;
       }
 
       const [hour,min] = data.estTime.split(":").map(Number);
       const targetTime = new Date();
-      targetTime.setHours(hours, minutes, 0, 0);
+      const now = new Date();
+      targetTime.setHours(hour, min, 0, 0);
       targetTime.setMinutes(targetTime.getMinutes()+5);
       if(now.getTime() > targetTime.getTime()){
-        localStorage.clear();
+        localStorage.removeItem(STORAGE_KEY);
         location.reload();
         return;
       }
