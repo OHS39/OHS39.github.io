@@ -73,7 +73,7 @@ button[type="submit"], #submitBtn {
   transition: background-color 0.2s;
 }
 #seiri{
-    display: flex;
+    display: none;
   flex-direction: column; /* 中身を上から下に縦並びにする */
   align-items: center;    /* 中身の要素を左右中央に寄せる */
   text-align: center;     /* テキストを中央揃えにする */

@@ -34,7 +34,7 @@
   pattern=".*\S+.*" placeholder = "ニックネームを入力" 
   title="予約の際はニックネームを入力してください">
 
-  <button type="submit" id="submitBtn">予約を確定する</button>
+  <button type="submit" id="submitBtn">予約する</button>
 </form>
 
 <div id = "seiri">
@@ -197,10 +197,13 @@
       if (formElem) formElem.style.display = "none";
       
       // 整理券エリアを表示する
-      const ticketArea = document.getElementById("ticketArea");
+      const ticketArea = document.getElementById("seiri");
       if (ticketArea) {
-        ticketArea.style.display = "block";
+        ticketArea.style.display = "flex";
       }
+
+      const tt = document.getElementById("Reservetime");
+      tt.innerText = data.targetTime;
       // 整理券の中に時間をセットする
       //const myTargetTimeElem = document.getElementById("myTargetTime");
       //if (myTargetTimeElem) {
