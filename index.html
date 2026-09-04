@@ -111,17 +111,17 @@
   function handleResponse() {
     if (submitted) {
       // 画面に表示されている予定案内時刻を取得
-      //const estTime = document.getElementById("estimatedTime") ? document.getElementById("estimatedTime").innerText : "--:--";
+      const estTime = document.getElementById("estimatedTime") ? document.getElementById("estimatedTime").innerText : "--:--";
       
       // ① スマホのブラウザ（ローカルストレージ）に予約情報を記憶させる
-      //const ticketData = {
-        //targetTime: estTime,
-        //bookedAt: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })
-      //};
-      //localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketData));
+      const ticketData = {
+        targetTime: estTime,
+        bookedAt: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketData));
 
       // ② アラート表示
-      //alert(`予約が完了しました！\n\n【ご案内予定時刻】 ${estTime} 頃\n\n※この後表示される「整理券画面」をスクリーンショットして保管してください。`);
+      alert(`予約が完了しました！\n\n【ご案内予定時刻】 ${estTime} 頃\n\n※この後表示される「整理券画面」をスクリーンショットして保管してください。`);
       
       // ③ 画面表示を「整理券表示」に切り替える
       checkExistingTicket();
@@ -138,7 +138,7 @@
       submitted = false;
       
       // 1秒後に最新の待ち時間を再計算
-      //setTimeout(fetchWaitTime, 1000);
+      setTimeout(fetchWaitTime, 1000);
     }
   }
 
@@ -162,7 +162,6 @@
       if (ticketArea) {
         ticketArea.style.display = "block";
       }
-      
       // 整理券の中に時間をセットする
       //const myTargetTimeElem = document.getElementById("myTargetTime");
       //if (myTargetTimeElem) {
