@@ -173,7 +173,12 @@
     fetchWaitTime();
     // 30秒ごとに待ち時間を自動更新
     setInterval(fetchWaitTime, 30000);
-  });
+
+    const iframe = document.getElementById('hidden_iframe');
+    if (iframe) {
+      iframe.addEventListener('load', handleResponse);
+    }
+    });
   }
 </script>
 
@@ -199,7 +204,7 @@
 
 <button onclick="resetLocalStorage()">リセットボタン（デバッグ）</button>
 
-<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleResponse();"></iframe>
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
 
 
