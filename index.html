@@ -3,20 +3,28 @@
 <head>
   <title>The Frozen Curse</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
 
-
+  <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
   <h1>3-9 The Frozen Curse</h1>
-  <br><h2>待ち人数</h2>
+  <div class="contain">
+  <span class ="infobox">
+    <h2>待ち人数</h2>
   <h2><div id = "WaitPeople">-</div>人</h2>
-  <Br><h2>待ち時間目安</h2>
+  </span>
+  <span class = "infobox">
+    <h2>待ち時間目安</h2>
   <h2><div id = "waitTime">--</div>分</h2>
-  <br><h2>案内予定時刻</h2>
+  </span>
+  <span class = "infobox">
+    <h2>案内予定時刻</h2>
   <h2 id = "estimatedTime">--:--</h2>
-
+  </span>
+  
+  </div>
   <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfRFS7dBoVCkkXRCejVBd1yYdj3HO9z09MuCtlwwrhKk5BbEQ/formResponse" 
       method="POST" 
       target="hidden_iframe" 
