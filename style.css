@@ -74,18 +74,30 @@ button[type="submit"], #submitBtn {
 }
 #seiri{
     display: flex;
-    justify-content: space-around; /* 均等に横に並べる */
-    align-items: center;            /* 上下の位置を中央に揃える */
-    background-color: #FF4500;     /* 背景色（お好みで調整） */
-    padding: 15px;           /* 角を丸くする */
-    margin: 20px 0;
+  flex-direction: column; /* 中身を上から下に縦並びにする */
+  align-items: center;    /* 中身の要素を左右中央に寄せる */
+  text-align: center;     /* テキストを中央揃えにする */
+  background-color: #FF4500;
+  padding: 20px 15px;
+  border-radius: 3px;    /* 角丸を追加 */
+  margin: 25px auto;
+  width: 100%;
+  max-width: 400px;       /* 横幅が広がりすぎないように制限 */
+  box-sizing: border-box;
 }
 #Stitle{
-    align-items: center;
+    font-size: 1.5rem;
+  margin: 0 0 10px 0;
+  color: #ffffff;
 }
 #sentence{
-    font-size: 0.9rem;
+    font-size: 0.75rem;     /* 文字を小さく設定 */
+  color: #f0f0f0;
+  line-height: 1.4;       /* 行間を整えて読みやすく */
+  margin: 0;
 }
 #Reservetime{
-    font-size: 1.5rem;
+   font-size: 2.2rem;
+  font-weight: bold;
+  margin-right: 4px;
 }
