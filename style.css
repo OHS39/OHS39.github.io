@@ -1,3 +1,6 @@
+.body{
+    background-color: black;
+}
 .contain{
     display: flex;
     justify-content: space-around; /* 均等に横に並べる */
