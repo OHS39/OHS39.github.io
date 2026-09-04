@@ -11,8 +11,10 @@
 .infobox {
   text-align: center;            /* 文字を中央揃え */
   font-size: 1.2rem;
-  display: inline-block;
-  white-space: nowrap;
+}
+.infotext{
+    display: inline-block;
+    white-space: nowrap;
 }
 body{
     background-color: black;
