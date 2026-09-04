@@ -10,10 +10,11 @@
 }
 .infobox {
   text-align: center;            /* 文字を中央揃え */
+  font-size: 15px;
 }
 body{
     background-color: black;
 }
-.title{
+#title{
     color: brown;
 }
