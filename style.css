@@ -19,9 +19,15 @@
     white-space: nowrap;
     display: flex;
 }
+.infoname{
+    font-size: 1.8rem;
+}
 body{
     background-color: black;
 }
 #title{
     color: brown;
+}
+button{
+    align-items: center;
 }
